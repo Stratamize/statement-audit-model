@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stratamize.com/statement-audit/schema/payment-statement-audit.schema.json",
+  "title": "Stratamize Statement Audit Model",
+  "description": "A processor-neutral contract for normalizing statement-level merchant processing totals without cardholder or bank-account data. Cross-field accounting and privacy rules are enforced by tools/validate_audit.py.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "calculation_basis",
+    "statement_period",
+    "currency",
+    "card_volume",
+    "transaction_count",
+    "gross_processing_fees",
+    "statement_credits",
+    "total_processing_fees",
+    "effective_rate",
+    "average_ticket",
+    "pricing_model",
+    "fee_groups"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1.0",
+      "description": "Version of this data contract."
+    },
+    "calculation_basis": {
+      "const": "gross_settled_purchase_volume_and_net_processing_fees",
+      "description": "Declares the numerator and denominator convention used by this release."
+    },
+    "statement_period": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date",
+          "description": "First calendar date covered by the statement, inclusive."
+        },
+        "end": {
+          "type": "string",
+          "format": "date",
+          "description": "Last calendar date covered by the statement, inclusive."
+        }
+      },
+      "additionalProperties": false
+    },
+    "currency": {
+      "const": "USD",
+      "description": "All monetary fields use US dollars. Mixed-currency records are invalid."
+    },
+    "card_volume": {
+      "$ref": "#/$defs/money",
+      "description": "Gross settled purchase volume for the statement period, before refunds, chargebacks, or funding adjustments."
+    },
+    "transaction_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000,
+      "description": "Count of settled purchase transactions included in card_volume."
+    },
+    "gross_processing_fees": {
+      "$ref": "#/$defs/money",
+      "description": "Gross processing-related charges before statement_credits; equals the sum of fee_groups."
+    },
+    "statement_credits": {
+      "$ref": "#/$defs/money",
+      "description": "Processing-fee credits or rebates applied on the statement. Transaction refunds and funding adjustments are excluded."
+    },
+    "total_processing_fees": {
+      "$ref": "#/$defs/money",
+      "description": "Net processing fees: gross_processing_fees minus statement_credits."
+    },
+    "effective_rate": {
+      "description": "total_processing_fees divided by card_volume, expressed as a decimal rounded to six places; null when card_volume is zero.",
+      "oneOf": [
+        { "$ref": "#/$defs/rate" },
+        { "type": "null" }
+      ]
+    },
+    "average_ticket": {
+      "description": "card_volume divided by transaction_count, rounded to cents; null when transaction_count is zero.",
+      "oneOf": [
+        { "$ref": "#/$defs/money" },
+        { "type": "null" }
+      ]
+    },
+    "pricing_model": {
+      "type": "string",
+      "enum": [
+        "interchange_plus",
+        "flat_rate",
+        "tiered",
+        "subscription",
+        "dual_pricing",
+        "unknown"
+      ],
+      "description": "Observed statement pricing presentation, not a legal or qualification determination."
+    },
+    "fee_groups": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 9,
+      "description": "Gross, nonnegative processing charges grouped once by category. Categories must be unique.",
+      "items": {
+        "type": "object",
+        "required": ["category", "amount"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "interchange",
+              "assessments",
+              "processor_markup",
+              "authorization",
+              "monthly",
+              "pci",
+              "equipment",
+              "chargebacks",
+              "other"
+            ]
+          },
+          "amount": { "$ref": "#/$defs/money" },
+          "notes": { "$ref": "#/$defs/note" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "review_notes": {
+      "type": "array",
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/note" },
+      "description": "Optional audit explanations only. Never include merchant identity, card data, bank data, credentials, or secrets."
+    }
+  },
+  "$defs": {
+    "money": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 999999999999.99,
+      "description": "A nonnegative USD amount with no more than two decimal places. Decimal precision is enforced by the companion validator."
+    },
+    "rate": {
+      "type": "number",
+      "minimum": 0,
+      "description": "A nonnegative decimal rate with no more than six decimal places."
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,4 @@
+# Pin the standard default rule set so machine-level Ruff configuration
+# cannot change what "clean" means for this package.
+[lint]
+select = ["E4", "E7", "E9", "F"]

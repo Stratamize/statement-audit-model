@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.1.0",
+  "calculation_basis": "gross_settled_purchase_volume_and_net_processing_fees",
+  "statement_period": {"start": "2026-06-01", "end": "2026-06-30"},
+  "currency": "USD",
+  "card_volume": 125000.00,
+  "transaction_count": 1860,
+  "gross_processing_fees": 2864.75,
+  "statement_credits": 0.00,
+  "total_processing_fees": 2864.75,
+  "effective_rate": 0.022918,
+  "average_ticket": 67.20,
+  "pricing_model": "interchange_plus",
+  "fee_groups": [
+    {"category": "interchange", "amount": 1849.25},
+    {"category": "assessments", "amount": 171.50},
+    {"category": "processor_markup", "amount": 575.00},
+    {"category": "authorization", "amount": 186.00},
+    {"category": "monthly", "amount": 49.00},
+    {"category": "pci", "amount": 34.00}
+  ],
+  "review_notes": ["Card ending in 4242"]
+}

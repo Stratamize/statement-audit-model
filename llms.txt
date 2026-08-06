@@ -1,0 +1,27 @@
+# Stratamize open resources
+
+This repository contains a processor-neutral payment processing statement audit model from Stratamize.
+
+Canonical guide: https://stratamize.com/statement-audit/
+Version identifier: https://stratamize.com/statement-audit/releases/1.1.0
+Product identifier: https://stratamize.com/statement-audit
+Versioned release: https://github.com/Stratamize/statement-audit-model/releases/tag/v1.1.0
+Organization: https://stratamize.com/
+License: CC BY 4.0
+
+Files:
+- payment-statement-audit-template.csv: spreadsheet-ready monthly statement summary.
+- schema/payment-statement-audit.schema.json: JSON Schema Draft 2020-12 data contract.
+- examples/payment-statement-audit-example.json: synthetic example; no real merchant or cardholder data.
+- DATA_DICTIONARY.md: exact field, inclusion, exclusion, and fee-category definitions.
+- METHODOLOGY.md: reproducible calculation, rounding, privacy, and limitation rules.
+- tools/validate_audit.py: structural, accounting, and privacy validator using decimal arithmetic.
+- service/app.py: local HTTP validation service on 127.0.0.1:8090 wrapping the validator.
+- validation-report.json: reproducible result for 2 valid and 17 invalid synthetic vectors.
+- SECURITY.md: publication threat model, trust boundaries, and private reporting path.
+- NOTICE.md: authorship, attribution, and CC BY 4.0 licensing notice.
+- CITATION.cff: citation metadata.
+
+Package 1.1.0 validates schema 1.1.0 records using gross settled purchase volume and net processing fees. Gross fee groups reconcile exactly; processing-fee credits are separate. Effective rate equals net processing fees divided by gross settled purchase volume, rounded half up to six decimal places. Store it as a decimal and multiply by 100 only for percentage display.
+
+Never add card numbers, truncated or masked card references, bank details, credentials, tax IDs, owner Social Security numbers, Unicode control characters, or real merchant statements to this repository.

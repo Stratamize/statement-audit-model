@@ -1,0 +1,19 @@
+{
+  "dependency_versions": {
+    "attrs": "26.1.0",
+    "jsonschema": "4.26.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.6.3"
+  },
+  "invalid_vectors": 17,
+  "jsonschema_version": "4.26.0",
+  "report_version": "1.0",
+  "schema_sha256": "8cf7c17b54c98fccd2c58c9d0d7d7f205d0c953617d9db27c14968dc5a02d67e",
+  "status": "pass",
+  "unexpected": [],
+  "unexpected_results": 0,
+  "valid_vectors": 2,
+  "validator_sha256": "cd1e16ae8df1974312a872897f2db64e62dfcb0f22caaf4522fddc979b407ed7",
+  "validator_version": "1.1.0"
+}

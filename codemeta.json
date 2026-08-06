@@ -1,0 +1,38 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "Dataset",
+  "name": "Stratamize Statement Audit Model",
+  "description": "A processor-neutral, validated model for normalizing monthly merchant payment-processing statements without cardholder data.",
+  "version": "1.1.0",
+  "datePublished": "2026-08-06",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "identifier": "https://stratamize.com/statement-audit/releases/1.1.0",
+  "url": "https://stratamize.com/statement-audit/",
+  "sameAs": [
+    "https://stratamize.com/statement-audit/releases/1.1.0",
+    "https://stratamize.com/statement-audit"
+  ],
+  "codeRepository": "https://github.com/Stratamize/statement-audit-model",
+  "creator": {
+    "@type": "Organization",
+    "name": "Stratamize LLC",
+    "url": "https://stratamize.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Stratamize LLC",
+    "url": "https://stratamize.com/"
+  },
+  "keywords": [
+    "payment processing",
+    "merchant services",
+    "effective rate",
+    "statement audit",
+    "fintech",
+    "JSON Schema",
+    "payments data",
+    "cost analysis"
+  ],
+  "isAccessibleForFree": true,
+  "inLanguage": "en"
+}

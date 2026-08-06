@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this audit model, cite it using the metadata below."
+title: "Stratamize Statement Audit Model"
+type: dataset
+authors:
+  - name: "Stratamize LLC"
+version: 1.1.0
+date-released: 2026-08-06
+identifiers:
+  - type: url
+    value: "https://stratamize.com/statement-audit/releases/1.1.0"
+    description: "Stratamize version identifier for this release"
+url: "https://stratamize.com/statement-audit/"
+repository-code: "https://github.com/Stratamize/statement-audit-model"
+license: CC-BY-4.0
+keywords:
+  - payment processing
+  - merchant services
+  - effective rate
+  - statement audit
+  - fintech
