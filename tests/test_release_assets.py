@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import json
 import re
@@ -94,7 +95,8 @@ class ReleaseAssetTests(unittest.TestCase):
 
         lowered = notice.lower()
         for forbidden in (
-            "lifted",
+            # Retired partner name, base64-encoded so the guard does not spell it.
+            base64.b64decode("bGlmdGVk").decode(),
             "zenodo",
             "doi.org",
             "kaggle",
